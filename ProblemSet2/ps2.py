@@ -76,8 +76,15 @@ class RectangularRoom(object):
         width: an integer > 0
         height: an integer > 0
         """
-        raise NotImplementedError
-    
+        self.width = width
+        self.height = height
+        
+        self.room = []
+        for w in range(width):
+            self.room.append([])
+            for h in range(height):
+                self.room[w].append('1')
+
     def cleanTileAtPosition(self, pos):
         """
         Mark the tile under the position POS as cleaned.
