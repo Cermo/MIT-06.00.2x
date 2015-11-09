@@ -247,7 +247,7 @@ class StandardRobot(Robot):
         self.room.cleanTileAtPosition(self.getRobotPosition())
 
 # Uncomment this line to see your implementation of StandardRobot in action!
-testRobotMovement(StandardRobot, RectangularRoom)
+#testRobotMovement(StandardRobot, RectangularRoom)
 
 
 # === Problem 3
@@ -269,10 +269,26 @@ def runSimulation(num_robots, speed, width, height, min_coverage, num_trials,
     robot_type: class of robot to be instantiated (e.g. StandardRobot or
                 RandomWalkRobot)
     """
-    raise NotImplementedError
+    ticks_history = []
+    for trial in range(num_trials):
+#        anim = ps2_visualize.RobotVisualization(num_robots, width, height)
+        room = RectangularRoom(width, height)
+        robots = []
+        for rob in range(num_robots):
+            robot = robot_type(room, speed)
+            robots.append(robot)
+        num_ticks = 0
+        while room.getNumCleanedTiles()/float(room.getNumTiles()) < min_coverage:
+            for robot in range(len(robots)):
+                robots[robot].updatePositionAndClean()
+#            anim.update(room, robots)
+            num_ticks +=1
+        ticks_history.append(num_ticks)
+#        anim.done()
+    return sum(ticks_history)/float(len(ticks_history))
 
 # Uncomment this line to see how much your simulation takes on average
-##print  runSimulation(1, 1.0, 10, 10, 0.75, 30, StandardRobot)
+#print  runSimulation(1, 1.0, 10, 10, 1, 1, StandardRobot)
 
 
 # === Problem 4
@@ -288,8 +304,14 @@ class RandomWalkRobot(Robot):
         Move the robot to a new position and mark the tile it is on as having
         been cleaned.
         """
-        raise NotImplementedError
+        self.setRobotDirection(random.randint(0,360))
+        while not self.room.isPositionInRoom(self.getRobotPosition().getNewPosition(self.direction, self.speed)):
+            self.setRobotDirection(random.randint(0,360))
+        self.setRobotPosition(self.getRobotPosition().getNewPosition(self.direction, self.speed))
+        self.room.cleanTileAtPosition(self.getRobotPosition())
 
+#print  runSimulation(2, 1.0, 10, 10, 1, 50, StandardRobot)
+#print  runSimulation(2, 1.0, 10, 10, 1, 50, RandomWalkRobot)
 
 def showPlot1(title, x_label, y_label):
     """
@@ -310,7 +332,7 @@ def showPlot1(title, x_label, y_label):
     pylab.ylabel(y_label)
     pylab.show()
 
-    
+#showPlot1('', 'Number of robots', 'Number of ticks')    
 def showPlot2(title, x_label, y_label):
     """
     What information does the plot produced by this function tell you?
@@ -332,7 +354,7 @@ def showPlot2(title, x_label, y_label):
     pylab.ylabel(y_label)
     pylab.show()
     
-
+showPlot2('Title', 'X', 'Y')
 # === Problem 5
 #
 # 1) Write a function call to showPlot1 that generates an appropriately-labeled
