@@ -310,8 +310,8 @@ class RandomWalkRobot(Robot):
         self.setRobotPosition(self.getRobotPosition().getNewPosition(self.direction, self.speed))
         self.room.cleanTileAtPosition(self.getRobotPosition())
 
-#print  runSimulation(2, 1.0, 10, 10, 1, 50, StandardRobot)
-#print  runSimulation(2, 1.0, 10, 10, 1, 50, RandomWalkRobot)
+#print  runSimulation(50, 1.0, 10, 10, 1, 1, StandardRobot)
+#print  runSimulation(1, 1.0, 10, 10, 1, 1, RandomWalkRobot)
 
 def showPlot1(title, x_label, y_label):
     """
@@ -332,7 +332,7 @@ def showPlot1(title, x_label, y_label):
     pylab.ylabel(y_label)
     pylab.show()
 
-#showPlot1('', 'Number of robots', 'Number of ticks')    
+showPlot1('', 'Number of robots', 'Number of ticks')    
 def showPlot2(title, x_label, y_label):
     """
     What information does the plot produced by this function tell you?
@@ -354,7 +354,7 @@ def showPlot2(title, x_label, y_label):
     pylab.ylabel(y_label)
     pylab.show()
     
-showPlot2('Title', 'X', 'Y')
+#showPlot2('Title', 'X', 'Y')
 # === Problem 5
 #
 # 1) Write a function call to showPlot1 that generates an appropriately-labeled
